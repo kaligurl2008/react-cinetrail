@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
 import {MdOutlineDarkMode, MdOutlineLightMode} from 'react-icons/md';
+import { ThemeContext } from '../../Contexts/ThemeContext';
 
 
 function Header() {
 
-    const darkMode = true;
+    // const darkMode = true;
+
+    //access the global state using context
+    //note CURLY brackets here
+    const {darkMode, setDarkMode} = useContext(ThemeContext)
+
+    //function to toggle dark/light mode
+    const handleTheme = () => {
+        //toggle from dark/light
+        setDarkMode(!darkMode);
+        //save this value to local storage
+        localStorage.setItem("darkMode", !darkMode);
+    }
 
   return (
     <div className={darkMode ? "header-container" : "header-container header-light"}>
@@ -20,14 +33,14 @@ function Header() {
                     {
                         darkMode?
                         <div className='theme-buttons'>
-                            <MdOutlineLightMode className='theme-icon' />
-                            <MdOutlineDarkMode className='them-icon theme-icon-active' />
+                            <MdOutlineLightMode className='theme-icon' onClick={handleTheme}/>
+                            <MdOutlineDarkMode className='theme-icon theme-icon-active' />
 
                         </div>
                         :
                         <div className='theme-buttons'>
                             <MdOutlineLightMode className='theme-icon theme-icon-active' />
-                            <MdOutlineDarkMode className='theme-icon' />
+                            <MdOutlineDarkMode className='theme-icon' onClick={handleTheme}/>
 
                         </div>
                     }
