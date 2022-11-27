@@ -2,3 +2,7 @@
     margin-top: var(--header-height);
     color: var(--white);
 }
+
+.homepage-light {
+    background: var(--white);
+}
