@@ -1,0 +1,29 @@
+.left-arrow, .right-arrow{
+    color: var(--red);
+    font-size: 40px;
+    z-index: 2;
+    position: absolute; /*based on parent which must be poisition relative */
+    top: 45%;
+}
+
+.left-arrow{
+    left: 0px;
+}
+
+.right-arrow{
+    right: 0px;
+}
+
+.slider-overlay{
+    background: linear-gradient(90deg, rgba(0.0.0.1) 0%, rgba(255,255,255,0)100%);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.movie-info{
+    position: absolute;
+    bottom: 0px;
+    color: var(--white);
+    width: 50%;
+}
