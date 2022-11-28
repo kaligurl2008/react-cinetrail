@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import "./Slider.css"
-import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md';
+import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
+import StarRatings from 'react-star-ratings'
 
 function Slider({apiKey, baseUrl}) {
 
@@ -14,6 +15,10 @@ function Slider({apiKey, baseUrl}) {
     //state for slider photo
     const [index, setIndex] = React.useState(0);
 
+    //const movie_rating = 4;
+    //create state for rating
+    const [currentRating, setCurrentRating] = React.useState(0);
+
     //call api for data when the component loads
     React.useEffect(
         ()=>{
@@ -23,6 +28,9 @@ function Slider({apiKey, baseUrl}) {
             .then(res =>{
                 console.log(res.data.results);
                 setUpcomingMovies(res.data.results);
+                // //divide votes by 2 to set current rating
+                // let rating = Math.round((upcomingMovies[0]?.vote_average)/2)
+                // setCurrentRating(rating);
             })
             .catch(err => console.log(err))
         },[]
@@ -44,6 +52,9 @@ function Slider({apiKey, baseUrl}) {
         index === 0?
         setIndex(upcomingMovies.length-1):
         setIndex(index-1);
+        //divide votes by 2 to set current rating
+        let rating = Math.round((upcomingMovies[index]?.vote_average)/2)
+        setCurrentRating(rating);
     }
 
     const handleRight = () => {
@@ -53,6 +64,9 @@ function Slider({apiKey, baseUrl}) {
         index === upcomingMovies.length - 1?
         setIndex(0) :
         setIndex(index+1);
+        //divide votes by 2 to set current rating
+        let rating = Math.round((upcomingMovies[index]?.vote_average)/2)
+        setCurrentRating(rating);
     }
 
   return (
@@ -64,8 +78,16 @@ function Slider({apiKey, baseUrl}) {
                             onClick={handleRight}/>
         <div className='movie-info'>
             <h1>{upcomingMovies[index]?.title}</h1>
-            <p>{upcomingMovies[index]?.overview.slice(0, 120)}</p>
+            <p>{upcomingMovies[index]?.overview?.slice(0, 120)}</p>
             <p>Release Date: {upcomingMovies[index]?.release_date}</p>
+            <StarRatings
+                rating={currentRating}
+                starRatedColor="red"
+                starDimension='15px'
+                starSpacing='1px'
+                
+             />
+             <p className='see-details'>See Details</p>
         </div>
     </div>
   )
