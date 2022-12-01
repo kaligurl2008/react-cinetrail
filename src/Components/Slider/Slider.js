@@ -3,10 +3,14 @@ import axios from 'axios'
 import "./Slider.css"
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md';
 
-function Slider({apiKey, baseUrl}) {
+function Slider() {
+
+    //set up apikey and baseurl to send to Homepage
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
     //baseurl for images
-    const imageUrl = "https://image.tmdb.org/t/p/original";
+    const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
 
     //create state for the upcoming movies
     const [upcomingMovies, setUpcomingMovies] = React.useState([]);
@@ -21,7 +25,7 @@ function Slider({apiKey, baseUrl}) {
             //call api to get upcoming movies
             axios.get(`${baseUrl}movie/upcoming?api_key=${apiKey}`)
             .then(res =>{
-                console.log(res.data.results);
+                //console.log(res.data.results);
                 setUpcomingMovies(res.data.results);
             })
             .catch(err => console.log(err))
@@ -30,7 +34,7 @@ function Slider({apiKey, baseUrl}) {
 
 
     const sliderStyle={
-        backgroundImage:`url("${imageUrl}${upcomingMovies[index]?.backdrop_path}")`,
+        backgroundImage:`url("${imageBaseUrl}${upcomingMovies[index]?.backdrop_path}")`,
         backgroundSize:'cover',
         backgroundPosition:'center',
         backgroundRepeat:'no-repeat',
