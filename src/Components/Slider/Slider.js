@@ -2,6 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import "./Slider.css"
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md';
+import Rating from '../Rating/Rating';
+import Genres from '../Genres/Genres';
+
 
 function Slider() {
 
@@ -18,6 +21,9 @@ function Slider() {
     //state for slider photo
     const [index, setIndex] = React.useState(0);
 
+    //create state for rating
+    const [currentRating, setCurrentRating] = React.useState(0);
+
     //call api for data when the component loads
     React.useEffect(
         ()=>{
@@ -27,9 +33,12 @@ function Slider() {
             .then(res =>{
                 //console.log(res.data.results);
                 setUpcomingMovies(res.data.results);
+                //divide votes by 2 to set currentRating
+                let rating = res.data.results[index]?.vote_average/2;
+                setCurrentRating(rating);
             })
             .catch(err => console.log(err))
-        },[]
+        },[index]
     )
 
 
@@ -48,6 +57,12 @@ function Slider() {
         index === 0?
         setIndex(upcomingMovies.length-1):
         setIndex(index-1);
+        //divide votes by 2 to set currentRating
+        // let rating = Math.round((upcomingMovies[index].vote_average)/2);
+        // console.log("index is " + index);
+        // console.log("vote is " + upcomingMovies[index].vote_average);
+        // console.log("rating is " + rating);
+        // setCurrentRating(rating);
     }
 
     const handleRight = () => {
@@ -57,6 +72,12 @@ function Slider() {
         index === upcomingMovies.length - 1?
         setIndex(0) :
         setIndex(index+1);
+        //divide votes by 2 to set currentRating
+        // let rating = Math.round((upcomingMovies[index].vote_average)/2);
+        // console.log("index is " + index);
+        // console.log("vote is " + upcomingMovies[index].vote_average);
+        // console.log("rating is " + rating);
+        // setCurrentRating(rating);
     }
 
   return (
@@ -69,10 +90,20 @@ function Slider() {
         <div className='movie-info'>
             <h1>{upcomingMovies[index]?.title}</h1>
             <p>{upcomingMovies[index]?.overview.slice(0, 120)}</p>
+            <Genres movieGenres = {upcomingMovies[index]?.genre_ids}/>
             <p>Release Date: {upcomingMovies[index]?.release_date}</p>
+            <Rating stars={currentRating}/>
+            {/* <Rating stars={upcomingMovies[index]?.vote_average/2}/> */}
         </div>
     </div>
   )
 }
 
 export default Slider
+
+{/* <StarRatings
+    rating={currentRating}
+    starRatedColor="red"
+    starDimension="15px"
+    starSpacing="1px"
+/> */}
