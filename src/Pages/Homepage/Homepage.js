@@ -42,7 +42,7 @@ function Homepage() {
         //call api to get top rated movies
         axios.get(`${baseUrl}movie/top_rated?api_key=${apiKey}&page=1`)
         .then(res =>{
-            console.log(res.data.results);
+            // console.log(res.data.results);
             //store data from api into state
             setTopRatedMovies(res.data.results.slice(0, 10))
             
