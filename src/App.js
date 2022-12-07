@@ -4,6 +4,8 @@ import Header from './Components/Header/Header';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import ThemeContextProvider from './Contexts/ThemeContext';
 import Homepage from './Pages/Homepage/Homepage';
+import MovieDetails from './Pages/MovieDetails/MovieDetails';
+
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Homepage/>} />
+          <Route path='/moviedetails/:movieId' element={<MovieDetails/>} />
         </Routes>
       </ThemeContextProvider>
       </BrowserRouter>

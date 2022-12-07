@@ -4,7 +4,7 @@ import "./Slider.css"
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md';
 import Rating from '../Rating/Rating';
 import Genres from '../Genres/Genres';
-
+import {Link} from 'react-router-dom'
 
 function Slider() {
 
@@ -94,6 +94,9 @@ function Slider() {
             <p>Release Date: {upcomingMovies[index]?.release_date}</p>
             <Rating stars={currentRating}/>
             {/* <Rating stars={upcomingMovies[index]?.vote_average/2}/> */}
+            <Link to={`/moviedetails/${upcomingMovies[index]?.id}`}>
+                <p className='see-details'>See Details</p>
+            </Link>
         </div>
     </div>
   )
