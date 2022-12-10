@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import './MovieDetails.css'
 import axios from 'axios'
 import ReactPlayer from 'react-player'
 import Rating from '../../Components/Rating/Rating'
+import { ThemeContext } from '../../Contexts/ThemeContext'
 
 
 function MovieDetails() {
@@ -57,10 +58,11 @@ function MovieDetails() {
         }, []
     )
 
-
+    //access global state using context
+    const { darkMode, setDarkMode} = useContext(ThemeContext)
 
   return (
-    <div className="details-container">
+    <div className={darkMode ? "details-container" : "details-container details-light"}>
         {
             videoLink ?
             <div className="trailer-container">
