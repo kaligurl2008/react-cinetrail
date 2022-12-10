@@ -5,6 +5,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import ThemeContextProvider from './Contexts/ThemeContext';
 import Homepage from './Pages/Homepage/Homepage';
 import MovieDetails from './Pages/MovieDetails/MovieDetails';
+import Footer from './Components/Footer/Footer';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/' element={<Homepage/>} />
           <Route path='/moviedetails/:movieId' element={<MovieDetails/>} />
         </Routes>
+        <Footer />
       </ThemeContextProvider>
       </BrowserRouter>
     </div>
