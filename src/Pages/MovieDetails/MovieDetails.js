@@ -5,6 +5,7 @@ import axios from 'axios'
 import ReactPlayer from 'react-player'
 import Rating from '../../Components/Rating/Rating'
 import { ThemeContext } from '../../Contexts/ThemeContext'
+import Review from '../../Components/Review/Review'
 
 
 function MovieDetails() {
@@ -28,12 +29,15 @@ function MovieDetails() {
     const [movie, setMovie] = React.useState({});
     const [rating, setRating] = React.useState(0);
 
+    //create state to hold reviews
+    const [reviews, setReviews] = React.useState([]);
+
     React.useEffect(
         ()=>{
             //call api to get movie info
             axios.get(`${baseUrl}movie/${movieId}?api_key=${apiKey}`)
             .then(res=>{
-                console.log(res.data)
+                // console.log(res.data)
                 setMovie(res.data)
                 setRating(res.data.vote_average/2)
             })
@@ -55,6 +59,16 @@ function MovieDetails() {
                 setVideoLink(youTubeLinks[0].key)
             })  
             .catch(err=>console.log(err))
+
+            //call api to get reviews
+            // https://api.themoviedb.org/3/movie/436270/reviews?api_key=e3a85422afd8939961f798aa4092344e
+            axios.get(`${baseUrl}movie/${movieId}/reviews?api_key=${apiKey}`)
+            .then(res=>{
+                // console.log(res.data.results)
+                setReviews(res.data.results)
+            })
+            .catch(err=> console.log(err))
+
         }, []
     )
 
@@ -102,6 +116,11 @@ function MovieDetails() {
             </div>
         </div>
 
+        <div className='review-container'>
+            {
+                reviews.map(item => <p><Review review = {item}/></p>)
+            }
+        </div>
 
     </div>
 
