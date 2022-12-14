@@ -6,6 +6,8 @@ import ThemeContextProvider from './Contexts/ThemeContext';
 import Homepage from './Pages/Homepage/Homepage';
 import MovieDetails from './Pages/MovieDetails/MovieDetails';
 import Footer from './Components/Footer/Footer';
+import Signup from './Pages/Users/Signup';
+import Signin from './Pages/Users/Signin';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Homepage/>} />
           <Route path='/moviedetails/:movieId' element={<MovieDetails/>} />
+          <Route path='/signup' element={<Signup/>} />
+          <Route path='/signin' element={<Signin/>} />
         </Routes>
         <Footer />
       </ThemeContextProvider>
