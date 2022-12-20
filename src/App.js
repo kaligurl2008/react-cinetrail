@@ -8,6 +8,10 @@ import MovieDetails from './Pages/MovieDetails/MovieDetails';
 import Footer from './Components/Footer/Footer';
 import Signup from './Pages/Users/Signup';
 import Signin from './Pages/Users/Signin';
+import UserContextProvider from './Contexts/UserContext';
+import MyFavorites from './Pages/MyFavorites/MyFavorites';
+
+
 
 
 function App() {
@@ -22,6 +26,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <UserContextProvider>
       <ThemeContextProvider>
         <Header />
         <Routes>
@@ -29,9 +34,11 @@ function App() {
           <Route path='/moviedetails/:movieId' element={<MovieDetails/>} />
           <Route path='/signup' element={<Signup/>} />
           <Route path='/signin' element={<Signin/>} />
+          <Route path='/myfavorites' element={<MyFavorites/>} />
         </Routes>
         <Footer />
       </ThemeContextProvider>
+      </UserContextProvider>
       </BrowserRouter>
     </div>
   );

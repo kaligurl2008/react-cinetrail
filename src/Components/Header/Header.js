@@ -3,12 +3,19 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Header.css'
 import {MdOutlineDarkMode, MdOutlineLightMode} from 'react-icons/md';
 import { ThemeContext } from '../../Contexts/ThemeContext';
+import { UserContext } from '../../Contexts/UserContext';
+
 
 
 function Header() {
 
     //activate useNavigate
     let navigate = useNavigate();
+
+    //set up global state use CURLY BRACKETS here
+    const {user, setUser, token, setToken} = React.useContext(UserContext);
+
+    const [profileOptions, setProfileOptions] = React.useState(false);
 
     // const darkMode = true;
 
@@ -23,6 +30,17 @@ function Header() {
         //save this value to local storage
         localStorage.setItem("darkMode", !darkMode);
     }
+
+    const handleLogout = () =>{
+        //clear local storage
+        localStorage.clear()
+        //reset user and token global state
+        setUser('')
+        setToken('')
+        //go to homepage
+        navigate('/')
+    }
+
 
   return (
     <div className={darkMode ? "header-container" : "header-container header-light"}>
@@ -50,8 +68,26 @@ function Header() {
 
             </div>
             <div>
-                <button className='create-account-btn'
-                onClick={()=>navigate(`/signup`)}>Create an account</button>
+                {
+                    token ? 
+                    <div className='profile-container'>
+                        <img src={user.image_url} className='profile-img'
+                        onClick={()=>setProfileOptions(!profileOptions)} />
+                        <p>Welcome {user.username}</p>
+                        {
+                            profileOptions?
+                            <div className='fav-div'>
+                                <Link to='/myfavorites'>My Favorites</Link>
+                                <p className='logout'
+                                onClick={handleLogout}>Logout</p>
+                            </div>
+                            : null
+                        }
+                    </div>
+                    :
+                    <button className='create-account-btn'
+                    onClick={()=>navigate(`/signup`)}>Create an account</button>
+                }
             </div>
         </div>
     </div>
