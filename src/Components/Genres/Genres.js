@@ -14,7 +14,7 @@ function Genres({movieGenres}) {
             //call api to get all genres
             axios.get(`${baseUrl}genre/movie/list?api_key=${apiKey}`)
             .then(res =>{
-                console.log(res.data.genres)
+                //console.log(res.data.genres)
                 //store in state
                 setAllGenres(res.data.genres)
             })
